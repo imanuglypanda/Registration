@@ -38,4 +38,8 @@ router.get('/logout', (req, res) => {
   }
 });
 
+router.get('/' , (req, res) => {
+  res.redirect('/login.html');
+});
+
 module.exports = router;
