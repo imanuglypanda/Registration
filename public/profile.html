@@ -179,10 +179,12 @@
                         </td>
                         
                         <td style="margin-left: 0;">
-                            <!-- <table > -->
+                            <table >
                                 <tr>
                                     <td>
-                                        <input v-model="studentIdData.status" type="radio" name="status" value="1">
+                                        {{ statusIdData.status }}
+                                        {{ statusIdData.status === true }}
+                                        <input v-model="studentIdData.status" type="radio" name="status">
                                     </td>
                                     <td>
                                         <label for="status">สภาพสมบูรณ์</label>
@@ -190,13 +192,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input v-model="studentIdData.status" type="radio" name="status" value="0">
+                                        <input v-model="studentIdData.status" type="radio" name="status">
                                     </td>
                                     <td>
                                         <label for="status">พ้นสภาพ</label>
                                     </td>
                                 </tr>
-                            <!-- </table> -->
+                            </table>
                         </td>
                     </tr>
                     <tr>
