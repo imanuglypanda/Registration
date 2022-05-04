@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/1ddaf0e4fa.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3"></script>
 </head>
-<body>
+<body style="color: #fff">
     <div id="app">
         <header>
             <a href="#" class="logo">FITM</a>
@@ -51,8 +51,288 @@
     
         <div class="Edit-table">
             
-            <h1>Hi gao</h1>
+            <div class="table1">
+                <table>
+                    <tr>
+                        <th id="Nametable1">ข้อมูลนักศึกษา</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="studentId">เลขประจำตัว</label>
+                        </td>
+                        <td>
+                            <input :disabled="!statusAdmin" type="text" id="studentId" name="studentId" v-model="studentIdData.studentId">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="studentThaName">ชื่อภาษาไทย</label>
+                        </td>
+                        
+                        <td>
+                            <input :disabled="!statusAdmin" type="text" id="studentThaName" name="studentThaName" v-model="studentIdData.studentThaName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="studentEngName">ชื่อภาษาอังกฤษ</label>
+                        </td>
+                        
+                        <td>
+                            <input :disabled="!statusAdmin" type="text" id="studentEngName" name="studentEngName" v-model="studentIdData.studentEngName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="sex">เพศ</label>
+                        </td>
+                        
+                        <td>
+                            <select :disabled="!statusAdmin" id="set_drop_1" name="sex" v-model="studentIdData.sex">
+                                <option value="0" selected>เพศ</option>
+                                <option value="1">ชาย</option>
+                                <option value="2">หญิง</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="degree">ระดับ</label>
+                        </td>
+                        
+                        <td>
+                            <input :disabled="!statusAdmin" type="text" id="degree" name="degree" v-model="studentIdData.degree">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="faculty">คณะ</label>
+                        </td>
+                        
+                        <td>
+                            <select :disabled="!statusAdmin" id="set_drop_4" name="faculty" v-model="studentIdData.faculty">
+                                <option value="0" selected>คณะ</option>
+                                <option value="1">คณะเทคโนโลยีและการจัดการอุตสาหกรรม</option>
+                                <option value="2">คณะสถาปัตยกรรมและการออกแบบ</option>
+                                <option value="3">คณะวิศวกรรมศาสตร์และเทคโนโลยี</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="syllabus">หลักสูตร</label>
+                        </td>
+                        <td>
+                            <div :disabled="!statusAdmin">
+                                <select v-if="studentIdData.faculty === '1'" id="set_drop_4" name="syllabus" v-model="studentIdData.syllabus" :disabled="!statusAdmin">
+                                    <option value="0" selected>หลักสูตร</option>
+                                    <option value="1">IT หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ</option>
+                                    <option value="2">ITI หลักสูตรอุตสาหกรรมศาสตรบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ (ต่อเนื่อง)</option>
+                                    <option value="3">CA หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาคอมพิวเตอร์ช่วยออกแบบและบริหารงานก่อสร้าง</option>
+                                </select>
+                                <select v-if="studentIdData.faculty === '2'" id="set_drop_4" name="syllabus" v-model="studentIdData.syllabus" :disabled="!statusAdmin">
+                                    <option value="0" selected>หลักสูตร</option>
+                                    <option value="1">Cer.D หลักสูตรศิลปบัณฑิต สาขาวิชาออกแบบเซรามิกส์</option>
+                                    <option value="2">AAP.D หลักสูตรศิลปบัณฑิต สาขาวิชาศิลปประยุกต์และการออกแบบผลิตภัณฑ์</option>
+                                    <option value="3">CI.D หลักสูตรศิลปบัณฑิต สาขาวิชาออกแบบผลิตภัณฑ์นวัตกรรมเซรามิกส์</option>
+                                </select>
+                                <select v-if="studentIdData.faculty === '3'" id="set_drop_4" name="syllabus" v-model="studentIdData.syllabus" :disabled="!statusAdmin">
+                                    <option value="0" selected>หลักสูตร</option>
+                                    <option value="1">CPet หลักสูตรวิศวกรรมศาสตรบัณฑิต สาขาวิชาเทคโนโลยีวิศวกรรมกระบวนการเคมี</option>
+                                    <option value="2">ILet หลักสูตรวิศวกรรมศาสตรบัณฑิต สาขาวิชาเทคโนโลยีวิศวกรรมอุตสาหการและโลจิสติกส์</option>
+                                    <option value="3">MAet หลักสูตรวิศวกรรมศาสตรบัณฑิต สาขาวิชาเทคโนโลยีวิศวกรรมเครื่องกลและยานยนต์</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <label for="fname">แผน</label>
+                        </td>
+                        <td>
+                            <input :disabled="!statusAdmin" type="text" id="fname" name="fname">
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td>
+                            <label for="date">ปีที่เข้าเรียน</label>
+                        </td>
+                        <td>
+                            <input :disabled="!statusAdmin" type="date" id="date" name="date" v-model="studentIdData.date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label  for="campus">วิทยาเขต</label>
+                        </td>
+                        <td>
+                            <select :disabled="!statusAdmin" id="set_drop_3" name="campus" v-model="studentIdData.campus">
+                                <option value="0" selected>วิทยาเขต</option>
+                                <option value="1">ปราจีนบุรี</option>
+                                <option value="2">กรุงเทพ</option>
+                                <option value="3">ระยอง</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="status">สถานะนักศึกษา</label>
+                        </td>
+                        
+                        <td>
+                            <table style="margin-left: 0;">
+                                <tr>
+                                    <td>
+                                        <input @click="studentIdData.status = 1" type="radio" name="status">
+                                    </td>
+                                    <td>
+                                        <label for="status">สภาพสมบูรณ์</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input @click="studentIdData.status = 0" type="radio" name="status">
+                                    </td>
+                                    <td>
+                                        <label for="status">พ้นสภาพ</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="year">ชั้นปีที่</label>
+                        </td>
+                        <td>
+                            <input :disabled="!statusAdmin" type="text" id="year" name="year" v-model="studentIdData.year">
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
+            <!-- table2***************** -->
+            <div class="table2">
+                <table>
+                    <tr>
+                        <th id="Nametable2">ประวัตินักศึกษา</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="fname">บัตรประตัวประชาชน</label>
+                        </td>
+                        <td>
+                            <input v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="fname">เชื้อชาติ</label>
+                        </td>
+                        
+                        <td>
+                            <input v-model="studentIdData.race" :disabled="!statusAdmin" type="text" id="fname" name="fname">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="fname">วันเกิด</label>
+                        </td>
+                        
+                        <td>
+                                <input v-model="studentIdData.birthDate" :disabled="!statusAdmin" type="date" id="birthday" name="birthday">
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <label for="fname">ส่วนสูง</label>
+                        </td>
+                        
+                        <td>
+                            <input v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname">
+                        </td>
+                    </tr> -->
+                    <!-- <tr>
+                        <td>
+                            <label for="fname">เป็นบุตรคนที่</label>
+                        </td>
+                        
+                        <td>
+                            <input v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname">
+                        </td>
+                    </tr> -->
+                </table> 
+                
+                <div class="table3">
+                    <table>
+                        <tr>
+                            <th id="space"></th>
+                        </tr>
+                        <tr>
+                            <th id="Nametable3">ที่อยู่</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <label for="fname">บ้านเลขที่</label>
+                            </td>
+                            <td>
+                                <input v-model="studentIdData.address" :disabled="!statusAdmin" type="text" id="id_1" name="fname">
+                            </td>
+                            <td>
+                                <label for="fname">หมู่</label>
+                            </td>
+                            <td>
+                                <input v-model="studentIdData.moo" :disabled="!statusAdmin" type="text" id="id_2" name="fname" >
+                            </td>
+                            <td>
+                                <label for="fname">ถนน</label>
+                            </td>
+                            <td>
+                                <input v-model="studentIdData.road" :disabled="!statusAdmin" type="text" id="id_3" name="fname" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="fname">แขวง/เขต</label>
+                            </td>
+                            <td>
+                                <input v-model="studentIdData.county" :disabled="!statusAdmin" type="text" id="id_4" name="fname" >
+                            </td>
+                            <td>
+                                <label for="fname">ตำบล</label>
+                            </td>
+                            <td>
+                                <input v-model="studentIdData.local" :disabled="!statusAdmin" type="text" id="id_5" name="fname" >
+                            </td>
+                            <td>
+                                <label for="fname"><P>อำเภอ</P></label>
+                            </td>
+                            <td>
+                                <input v-model="studentIdData.district" :disabled="!statusAdmin" type="text" id="id_6" name="fname" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="fname">จังหวัด</label>
+                            </td>
+                            
+                            <td>
+                                <input v-model="studentIdData.province" :disabled="!statusAdmin" type="text" id="id_7" name="fname" >
+                            </td>
+                            <td>
+                                <label for="fname">รหัสไปรษณีย์</label>
+                            </td>
+                            
+                            <td>
+                                <input v-model="studentIdData.postalCode" :disabled="!statusAdmin" type="text" id="id_8" name="fname" >
+                            </td>
+                        </tr>
+                    </table>         
+                </div>
+            
+            </div>
+            
         </div>
 
         <button  v-if="statusAdmin" class="button" @click="updateProfile()">บันทึก</button>
