@@ -39,7 +39,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/' , (req, res) => {
-  res.redirect('/login.html');
+  res.status(200).redirect('/login.html');
 });
 
 module.exports = router;
