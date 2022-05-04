@@ -13,6 +13,29 @@ router.get('/', async (req, res) => {
     };
 });
 
+
+// search
+router.get('/search', async (req, res) => {
+    try {
+
+      const data = req.body;
+
+      const teachers = await Teacher.find({
+        $or: [
+          { teacherName: { $regex: data.keyword, $options: 'i' } },
+          { username: { $regex: data.keyword, $options: 'i' } },
+          // { keyIn: { $regex: data.keyword, $options: 'i' } }
+        ]
+      });
+
+      res.status(200).json(teachers);
+
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    };
+});
+
+
 // Get One
 router.get('/:id', getTeacher, (req, res) => {
   res.status(200).json(res.teacher);

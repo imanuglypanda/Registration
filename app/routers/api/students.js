@@ -13,6 +13,32 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/search', (req, res) => {
+
+  try {
+    
+    const data = req.body;
+
+    const students = await Student.find({
+      $or: [
+        { studentId: { $regex: data.keyword, $options: 'i' } },
+        { studentThaName: { $regex: data.keyword, $options: 'i' } },
+        { syllabus: { $regex: data.keyword, $options: 'i' } },
+        { year: { $regex: data.keyword, $options: 'i' } },
+        { status: { $regex: data.keyword, $options: 'i' } }
+        // { keyIn: { $regex: data.keyword, $options: 'i' } }
+      ]
+    });
+
+    res.status(200).json(students);
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+
+})
+
+
 // Getting One
 router.get('/:id', getStudent, (req, res) => {
   res.status(200).json(res.student);

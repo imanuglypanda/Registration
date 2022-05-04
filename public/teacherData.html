@@ -53,7 +53,7 @@
             <tr>
                 <td>
                     <div class="Search">
-                        <input type="text" placeholder="Search.." name="search">
+                        <input v-model="keywordSearch" type="text" placeholder="Search.." name="search">
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </td>
@@ -97,7 +97,13 @@
             data() {
                 return {
                     teacherData: [],
-                    userData: []
+                    userData: [],
+                    keywordSearch: ''
+                }
+            },
+            watch: {
+                keywordSearch: function(val) {
+                    this.onSearch();
                 }
             },
             methods: {
@@ -123,6 +129,13 @@
                     }).catch(err => {
                         console.log(err);
                     });
+                },
+                async onSearch() {
+                    if (keywordSearch.length === 0) {
+                        await this.getTeacher();
+                    } else {
+                        // 
+                    }
                 }
             }
         }).mount('#app');
