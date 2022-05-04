@@ -97,6 +97,7 @@
             async created() {
                 await this.checkSession();
                 await this.getStudent();
+                this.init();
             },
             data() {
                 return {
@@ -107,6 +108,36 @@
                 }
             },
             methods: {
+                init() {
+                    try {
+                        if(this.studentData.faculty === '1') {
+                            if(this.studentData.syllabus === '1')
+                                this.studentData.syllabus = 'IT';
+                            if(this.studentData.syllabus === '2')
+                                this.studentData.syllabus = 'ITI';
+                            if(this.studentData.syllabus === '3')
+                                this.studentData.syllabus = 'CA';
+                        } 
+                        else if(this.studentData.faculty === '2') {
+                            if(this.studentData.syllabus === '1')
+                                this.studentData.syllabus = 'Cer.D';
+                            if(this.studentData.syllabus === '2')
+                                this.studentData.syllabus = 'AAP.D';
+                            if(this.studentData.syllabus === '3')
+                                this.studentData.syllabus = 'CI.D';
+                        }
+                        else if(this.studentData.faculty === '3') {
+                            if(this.studentData.syllabus === '1')
+                                this.studentData.syllabus = 'CPet';
+                            if(this.studentData.syllabus === '2')
+                                this.studentData.syllabus = 'ILet';
+                            if(this.studentData.syllabus === '3')
+                                this.studentData.syllabus = 'MAet';
+                        }
+                    } catch (err) {
+                        console.log('init error: ' + err);
+                    };
+                },
                 async checkSession() {
                     await axios.get('http://registration.app.ruk-com.cloud/checkSession').then(res => {                       
                         if(!res.data.status) location.href = "./login.html";
