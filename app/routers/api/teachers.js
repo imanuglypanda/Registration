@@ -19,6 +19,8 @@ router.get('/search', async (req, res) => {
     // try {
 
       let data = req.body;
+      console.log('req.body', req.body);
+      console.log('req.body.keyword', req.body.keyword);
       
       const teachers = await Teacher.find({
         $or: [
