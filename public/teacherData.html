@@ -135,7 +135,7 @@
                         await this.getTeacher();
                     } else {
                         await axios.get('http://registration.app.ruk-com.cloud/Teacher/search', {
-                            keyword: this.keywordSearch
+                            keyword: val
                         }).then(res => {
                             this.teacherData = res.data;
                         }).catch(err => {
