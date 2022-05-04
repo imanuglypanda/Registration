@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/search', (req, res) => {
+router.get('/search', async (req, res) => {
 
   try {
     
