@@ -103,7 +103,7 @@
             },
             watch: {
                 keywordSearch: function(val) {
-                    this.onSearch();
+                    this.onSearch(val);
                 }
             },
             methods: {
@@ -130,8 +130,8 @@
                         console.log(err);
                     });
                 },
-                async onSearch() {
-                    if (this.keywordSearch.length === 0) {
+                async onSearch(val) {
+                    if (val.length === 0) {
                         await this.getTeacher();
                     } else {
                         await axios.get('http://registration.app.ruk-com.cloud/Teacher/search', {

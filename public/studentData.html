@@ -97,7 +97,7 @@
             async created() {
                 await this.checkSession();
                 await this.getStudent();
-                this.init();
+                await this.init();
             },
             data() {
                 return {
@@ -110,11 +110,11 @@
             },
             watch: {
                 keywordSearch: function(val) {
-                    this.onSearch();
+                    this.onSearch(val);
                 }
             },
             methods: {
-                init() {
+                async init() {
                     try {
                         if(this.studentData.faculty === '1') {
                             if(this.studentData.syllabus === '1')
@@ -175,8 +175,8 @@
                         console.log(err);
                     });
                 },
-                async onSearch() {
-                    if (this.keywordSearch.length === 0) {
+                async onSearch(val) {
+                    if (val.length === 0) {
                         await this.getTeacher();
                     } else {
                         await axios.get('http://registration.app.ruk-com.cloud/Student/search', {

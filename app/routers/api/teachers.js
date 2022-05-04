@@ -19,16 +19,13 @@ router.get('/search', async (req, res) => {
     try {
 
       let data = req.body;
-
+      
       const teachers = await Teacher.find({
         $or: [
           { teacherName: { $regex: data.keyword, $options: 'i' } },
-          // { username: { $regex: data.keyword, $options: 'i' } },
-          // { password: { $regex: data.keyword, $options: 'i' } }
-          // { keyIn: { $regex: data.keyword, $options: 'i' } }
         ]
-      });
-
+      }).sort({ createdAt: -1 });
+      
       res.status(200).json(teachers);
 
     } catch (err) {
