@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
 // search
 router.get('/search', async (req, res) => {
-    try {
+    // try {
 
       let data = req.body;
       
@@ -28,9 +28,9 @@ router.get('/search', async (req, res) => {
       
       res.status(200).json(teachers);
 
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    };
+    // } catch (err) {
+    //   res.status(500).json({ message: err.message });
+    // };
 });
 
 
