@@ -179,7 +179,15 @@
                     if (this.keywordSearch.length === 0) {
                         await this.getTeacher();
                     } else {
-                        // 
+                        await axios.get('http://registration.app.ruk-com.cloud/Student/search', {
+                            keyword: this.keywordSearch
+                        })
+                            .then(res => {
+                                this.studentData = res.data;
+                            }).catch(err => {
+                                console.log(err);
+                            });
+                        
                     }
                 }
             }
