@@ -42,4 +42,8 @@ router.get('/', (req, res) => {
   res.redirect('./login.html');
 });
 
+router.get('*', (req, res) => {
+  res.redirect('./404.html')
+});
+
 module.exports = router;
