@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script> 
+    <script src="https://unpkg.com/vue@3"></script>
+    <style> @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Prompt:wght@400;500;600;700&display=swap'); </style>
+</head>
+<body class="
+        w-full h-screen relative
+        bg-[url('https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80')]
+        bg-cover bg-no-repeat bg-bottom"
+>
+    
+    <div id="app">
+        <div v-if="!statusAdmin" class="loginTeacher w-full h-full">
+            <div class=
+                "   
+                    absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl
+                    bg-white px-10 py-8 shadow-lg
+                "
+            >
+                <p class="text-2xl">
+                    <span class="font-semibold">Login</span> <span class="text-lg">Teacher</span>
+                </p>
+                <div class="mt-6 flex flex-col md:w-96 gap-y-2.5">
+                    <input v-model="form.username" type="text" placeholder="Username" class="px-4 py-2 border-2 border-orange-700/40 rounded-md">
+                    <input v-model="form.password" type="text" placeholder="Password" class="px-4 py-2 border-2 border-orange-700/40 rounded-md">
+                </div>
+                <div class="flex flex-col w-full text-center">
+                    <button @click="onLogin()" class="w-full mt-4 p-2.5 bg-orange-400 hover:bg-orange-500 rounded-md text-white shadow-sm duration-200">
+                        Login
+                    </button>
+                    <a href="./register.html" class="w-full mt-2 p-2.5 bg-gray-500/80 hover:bg-gray-500 rounded-md text-white shadow-sm duration-200">
+                        Register
+                    </a>
+                </div>
+            </div>
+
+            <button @click="swapPage()" class="absolute bottom-10 right-10 px-4 py-2 bg-orange-100 shadow-lg rounded-lg hover:bg-orange-200 duration-200">
+                Login admin
+            </button>
+        </div>
+
+        <div v-if="statusAdmin" class="loginAdmin w-full h-full">
+            <div class=
+                "   
+                    absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl
+                    bg-white px-10 py-8 shadow-lg
+                "
+            >
+                <p class="text-2xl">
+                    <span class="font-semibold">Login</span> <span class="text-lg">Admin</span>
+                </p>
+                <div class="mt-6 flex flex-col md:w-96 gap-y-2.5">
+                    <input v-model="form.username" type="text" placeholder="Username" class="px-4 py-2 border-2 border-orange-700/40 rounded-md">
+                    <input v-model="form.password" type="text" placeholder="Password" class="px-4 py-2 border-2 border-orange-700/40 rounded-md">
+                </div>
+                <button @click="onLogin()" class="w-full mt-4 p-2.5 bg-orange-400 hover:bg-orange-500 rounded-md text-white shadow-sm duration-200">
+                    Login
+                </button>
+            </div>
+            <button @click="swapPage()" class="absolute bottom-10 right-10 px-4 py-2 bg-orange-100 shadow-lg rounded-lg hover:bg-orange-200 duration-200">
+                Login teacher
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+               form: {
+                    username: '',
+                    password: ''
+               },
+               statusAdmin: false,
+               devServer: {
+
+                    historyApiFallback: true
+                }
+            };
+        },
+        methods: {
+            swapPage() {
+                this.statusAdmin = !this.statusAdmin;
+                this.form.username = '';
+                this.form.password = '';
+            },
+
+            async onLogin() {
+
+                if (this.statusAdmin) {
+                    
+                    await axios.post('http://registration.app.ruk-com.cloud/Admin/login', {
+                        username: this.form.username,
+                        password: this.form.password
+                    }).then((res) => {
+                        location.href = './studentData.html';
+                        alert('เข้าสู่ระบบสำเร็จ');
+                    }).catch((err) => { 
+                        console.log(err)
+                        alert('ชื่อผู้ใช้หรือรหัสผ่านผิด!');
+                    });
+
+                } else {
+
+                    await axios.post('http://registration.app.ruk-com.cloud/Teacher/login', {
+                        username: this.form.username,
+                        password: this.form.password
+                    }).then((res) => {
+                        if(res.status === 200) {
+                            alert('เข้าสู่ระบบสำเร็จ');
+                            location.href = './studentData.html';
+                        }
+                    }).catch((err) => { 
+                        alert('ชื่อผู้ใช้หรือรหัสผ่านผิด!'); 
+                        console.log(err)
+                    });
+                }
+            }
+        }
+    }).mount('#app');
+</script>

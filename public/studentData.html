@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/css/database.css">
+    <script src="https://kit.fontawesome.com/1ddaf0e4fa.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <a href="#" class="logo">FITM</a>
+            <ul>
+                <li v-if="statusAdmin">{{ userData.adminName }}<a href="#"><i class="fa-solid fa-user"></i></a></li>
+                <li v-if="!statusAdmin">{{ userData.teacherName }}<a href="#"><i class="fa-solid fa-user"></i></a></li>
+            </ul>
+            
+        </header>
+        <div class="container">
+            <div class="navigation">
+                <ul>
+                    <li id="make">
+                        <a href="studentData.html">                       
+                            <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
+                            <span class="title">ฐานข้อมูลนักศึกษา</span>
+                        </a>
+                    </li>
+                    <li v-if="statusAdmin">
+                        <a href="teacherData.html">                       
+                            <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
+                            <span class="title">ฐานข้อมูลผู้ใช้งาน</span>
+                        </a>
+                    </li>
+                    <li v-if="false">
+                        <a href="resetPassword.html">
+                            <span class="icon"><i class="fa-solid fa-key"></i></span>
+                            <span class="title">ตั้งค่าpassword</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="onLogout()">
+                            <span class="icon"><i class="fa-solid fa-gear"></i></span>
+                            <span class="title">ออกจากระบบ</span>    
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <div class="Search">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </td>
+                    <td style="padding-top: 35px;">
+                        <a v-if="statusAdmin" href="./profile-register.html">
+                            <button class="button4">เพิ่มข้อมูลนักศึกษา</button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+    
+            <table class="data_table">
+                <tr>
+                    <th id="ID">ID</th>
+                    <th id="Name">ชื่อ-นามสกุล</th>
+                    <th id="Sec">สาขา</th>
+                    <th id="Year">ชั้นปี</th>
+                    <th id="Status">สถานะ</th>
+                </tr>
+                <tr v-for="item in studentData"> 
+                    <th>{{ item.studentId }}</th>
+                    <th>{{ item.studentThaName }}</th>
+                    <th>{{ item.syllabus }}</th>
+                    <th>{{ item.year }}</th>
+                    <th v-if="item.status === '1'" style="background: lightgreen;" >สภาพสมบูรณ์</th>
+                    <th v-if="item.status === '0'" style="background: red;">พ้นสภาพ</th>
+                    <th>
+                        <a :href="'profile.html?data=' + item._id">
+                            <button class="button4">ดูข้อมูล</button>
+                        </a>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.createApp({
+            async created() {
+                await this.checkSession();
+                await this.getStudent();
+            },
+            data() {
+                return {
+                    studentData: [],
+                    studentIdData: [],
+                    statusAdmin: false,
+                    userData: []
+                }
+            },
+            methods: {
+                async checkSession() {
+                    await axios.get('http://registration.app.ruk-com.cloud/checkSession').then(res => {                       
+                        if(!res.data.status) location.href = "./login.html";
+                        this.userData = res.data.value.user;
+                        this.statusAdmin = res.data.value.statusAdmin;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                async getStudent() {
+                    await axios.get('http://registration.app.ruk-com.cloud/Student').then(res => {
+                        this.studentData = res.data;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                async getStudentById(id) {
+                    await axios.get('http://registration.app.ruk-com.cloud/Student/' + id).then(res => {
+                        this.studentIdData = res.data;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                onLogout() {
+                    axios.get('http://registration.app.ruk-com.cloud/logout').then(res => {
+                        alert(res.data.message);
+                        location.href = "./login.html";
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/css/database.css">
+    <script src="https://kit.fontawesome.com/1ddaf0e4fa.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <a href="#" class="logo">FITM</a>
+            <ul>
+                <li>{{ userData.adminName }}<a href="#"><i class="fa-solid fa-user"></i></a></li>
+            </ul>
+        </header>
+        <div class="container">
+            <div class="navigation">
+                <ul>
+                    <li id="make">
+                        <a href="studentData.html">                       
+                            <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
+                            <span class="title">ฐานข้อมูลนักศึกษา</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="teacherData.html">                       
+                            <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
+                            <span class="title">ฐานข้อมูลผู้ใช้งาน</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a v-if="false" href="resetPassword.html">
+                            <span class="icon"><i class="fa-solid fa-key"></i></span>
+                            <span class="title">ตั้งค่าpassword</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="onLogout()">
+                            <span class="icon"><i class="fa-solid fa-gear"></i></span>
+                            <span class="title">ออกจากระบบ</span>    
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="Edit-table">
+            <div class="table1">
+                <table>
+                    <tr>
+                        <th id="Nametable1">ข้อมูลนักศึกษา</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="studentId">เลขประจำตัว</label>
+                        </td>
+                        <td>
+                            <input type="text" id="studentId" name="studentId" v-model="studentForm.studentId">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="studentThaName">ชื่อภาษาไทย</label>
+                        </td>
+                        
+                        <td>
+                            <input type="text" id="studentThaName" name="studentThaName" v-model="studentForm.studentThaName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="studentEngName">ชื่อภาษาอังกฤษ</label>
+                        </td>
+                        
+                        <td>
+                            <input type="text" id="studentEngName" name="studentEngName" v-model="studentForm.studentEngName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="sex">เพศ</label>
+                        </td>
+                        
+                        <td>
+                            <select id="set_drop_1" name="sex" v-model="studentForm.sex">
+                                <option value="0" selected>เพศ</option>
+                                <option value="1">ชาย</option>
+                                <option value="2">หญิง</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="degree">ระดับ</label>
+                        </td>
+                        
+                        <td>
+                            <input type="text" id="degree" name="degree" v-model="studentForm.degree">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="faculty">คณะ</label>
+                        </td>
+                        
+                        <td>
+                            <select id="set_drop_4" name="faculty" v-model="studentForm.faculty">
+                                <option value="0" selected>คณะ</option>
+                                <option value="1">คณะเทคโนโลยีและการจัดการอุตสาหกรรม</option>
+                                <option value="2">คณะสถาปัตยกรรมและการออกแบบ</option>
+                                <option value="3">คณะวิศวกรรมศาสตร์และเทคโนโลยี</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="syllabus">หลักสูตร</label>
+                        </td>
+                        <td>
+                            <div>
+                                <select v-if="studentForm.faculty === '1'" id="set_drop_4" name="syllabus" v-model="studentForm.syllabus">
+                                    <option value="0" selected>หลักสูตร</option>
+                                    <option value="1">IT หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ</option>
+                                    <option value="2">ITI หลักสูตรอุตสาหกรรมศาสตรบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ (ต่อเนื่อง)</option>
+                                    <option value="3">CA หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาคอมพิวเตอร์ช่วยออกแบบและบริหารงานก่อสร้าง</option>
+                                </select>
+                                <select v-if="studentForm.faculty === '2'" id="set_drop_4" name="syllabus" v-model="studentForm.syllabus">
+                                    <option value="0" selected>หลักสูตร</option>
+                                    <option value="1">Cer.D หลักสูตรศิลปบัณฑิต สาขาวิชาออกแบบเซรามิกส์</option>
+                                    <option value="2">AAP.D หลักสูตรศิลปบัณฑิต สาขาวิชาศิลปประยุกต์และการออกแบบผลิตภัณฑ์</option>
+                                    <option value="3">CI.D หลักสูตรศิลปบัณฑิต สาขาวิชาออกแบบผลิตภัณฑ์นวัตกรรมเซรามิกส์</option>
+                                </select>
+                                <select v-if="studentForm.faculty === '3'" id="set_drop_4" name="syllabus" v-model="studentForm.syllabus">
+                                    <option value="0" selected>หลักสูตร</option>
+                                    <option value="1">CPet หลักสูตรวิศวกรรมศาสตรบัณฑิต สาขาวิชาเทคโนโลยีวิศวกรรมกระบวนการเคมี</option>
+                                    <option value="2">ILet หลักสูตรวิศวกรรมศาสตรบัณฑิต สาขาวิชาเทคโนโลยีวิศวกรรมอุตสาหการและโลจิสติกส์</option>
+                                    <option value="3">MAet หลักสูตรวิศวกรรมศาสตรบัณฑิต สาขาวิชาเทคโนโลยีวิศวกรรมเครื่องกลและยานยนต์</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <label for="fname">แผน</label>
+                        </td>
+                        <td>
+                            <input type="text" id="fname" name="fname" value="John">
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td>
+                            <label for="date">ปีที่เข้าเรียน</label>
+                        </td>
+                        <td>
+                            <input type="date" id="date" name="date" v-model="studentForm.date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label  for="campus">วิทยาเขต</label>
+                        </td>
+                        <td>
+                            <select id="set_drop_3" name="campus" v-model="studentForm.campus">
+                                <option value="0" selected>วิทยาเขต</option>
+                                <option value="1">ปราจีนบุรี</option>
+                                <option value="2">กรุงเทพ</option>
+                                <option value="3">ระยอง</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="status">สถานะนักศึกษา</label>
+                        </td>
+                        
+                        <td>
+                            <table style="margin-left: 0;">
+                                <tr>
+                                    <td>
+                                        <input v-model="studentForm.status" type="radio"  id="status" name="status" value="1">
+                                    </td>
+                                    <td>
+                                        <label for="status">สภาพสมบูรณ์</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input v-model="studentForm.status" type="radio" id="status" name="status" value="0">
+                                    </td>
+                                    <td>
+                                        <label for="status">พ้นสภาพ</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="year">ชั้นปีที่</label>
+                        </td>
+                        <td>
+                            <input type="text" id="year" name="year" v-model="studentForm.year">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- table2***************** -->
+            <div class="table2">
+                <table>
+                    <tr>
+                        <th id="Nametable2">ประวัตินักศึกษา</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="fname">บัตรประตัวประชาชน</label>
+                        </td>
+                        <td>
+                            <input v-model="studentForm.citizenId" v-model="studentForm.citizenId" type="text" id="fname" name="fname" value="John">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="fname">เชื้อชาติ</label>
+                        </td>
+                        
+                        <td>
+                            <input v-model="studentForm.race" type="text" id="fname" name="fname" value="John">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="fname">วันเกิด</label>
+                        </td>
+                        
+                        <td>
+                                <input v-model="studentForm.birthDate" type="date" id="birthday" name="birthday">
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <label for="fname">ส่วนสูง</label>
+                        </td>
+                        
+                        <td>
+                            <input v-model="studentForm.citizenId" type="text" id="fname" name="fname" value="John">
+                        </td>
+                    </tr> -->
+                    <!-- <tr>
+                        <td>
+                            <label for="fname">เป็นบุตรคนที่</label>
+                        </td>
+                        
+                        <td>
+                            <input v-model="studentForm.citizenId" type="text" id="fname" name="fname" value="John">
+                        </td>
+                    </tr> -->
+                </table> 
+                
+                <div class="table3">
+                    <table>
+                        <tr>
+                            <th id="space"></th>
+                        </tr>
+                        <tr>
+                            <th id="Nametable3">ที่อยู่</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <label for="fname">บ้านเลขที่</label>
+                            </td>
+                            <td>
+                                <input v-model="studentForm.address" type="text" id="id_1" name="fname" value="">
+                            </td>
+                            <td>
+                                <label for="fname">หมู่</label>
+                            </td>
+                            <td>
+                                <input v-model="studentForm.moo" type="text" id="id_2" name="fname" >
+                            </td>
+                            <td>
+                                <label for="fname">ถนน</label>
+                            </td>
+                            <td>
+                                <input v-model="studentForm.road" type="text" id="id_3" name="fname" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="fname">แขวง/เขต</label>
+                            </td>
+                            <td>
+                                <input v-model="studentForm.county" type="text" id="id_4" name="fname" >
+                            </td>
+                            <td>
+                                <label for="fname">ตำบล</label>
+                            </td>
+                            <td>
+                                <input v-model="studentForm.local" type="text" id="id_5" name="fname" >
+                            </td>
+                            <td>
+                                <label for="fname"><P>อำเภอ</P></label>
+                            </td>
+                            <td>
+                                <input v-model="studentForm.district" type="text" id="id_6" name="fname" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="fname">จังหวัด</label>
+                            </td>
+                            
+                            <td>
+                                <input v-model="studentForm.province" type="text" id="id_7" name="fname" >
+                            </td>
+                            <td>
+                                <label for="fname">รหัสไปรษณีย์</label>
+                            </td>
+                            
+                            <td>
+                                <input v-model="studentForm.postalCode" type="text" id="id_8" name="fname" >
+                            </td>
+                        </tr>
+                    </table>         
+                </div>
+            </div>
+        </div>
+        <button  class="button" @click="addStudent()">บันทึก</button>
+        <a href="studentData.html">
+            <button class="button_back">กลับ</button>
+        </a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        Vue.createApp({
+            async created() {
+                await this.checkSession();
+            },
+            data() {
+                return {
+                    userData: [],
+                    studentForm: {
+                        studentId: '',
+                        studentThaName: '',
+                        studentEngName: '',
+                        sex: '',
+                        degree: '',
+                        faculty: '',
+                        syllabus: '',
+                        date: '',
+                        campus: '',
+                        year: '',
+                        status: '',
+                        citizenId: '',
+                        race: '',
+                        birthDate: '',
+                        address: '',
+                        moo: '',
+                        road: '',
+                        county: '',
+                        local: '',
+                        district: '',
+                        province: '',
+                        postalCode: ''
+                    }
+                }
+            },
+            methods: {
+                async checkSession() {
+                    await axios.get('http://registration.app.ruk-com.cloud/checkSession').then(res => {
+                        if(!res.data.status) location.href = "./login.html";
+                        this.userData = res.data.value.user;
+                        this.statusAdmin = res.data.value.statusAdmin || false;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                async addStudent() {
+                    await axios.post('http://registration.app.ruk-com.cloud/Student/register', this.studentForm).then((res) => {
+                        if(res.status === 201) {
+                            alert(`เพิ่มนักศึกษาสำเร็จ`);
+                            location.href = './studentData.html';
+                        }
+                    }).catch((err) => {
+                        alert('เกิดข้อผิดพลาด: '+ err);
+                        console.log(err);
+                    });
+                },
+                onLogout() {
+                    axios.get('http://registration.app.ruk-com.cloud/logout').then(res => {
+                        alert(res.data.message);
+                        location.href = "./login.html";
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+            }
+        }).mount('#app');
+    </script>
+
+</body>
+</html>

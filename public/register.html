@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Register</title>
+    
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    
+    <style> @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Prompt:wght@400;500;600;700&display=swap'); </style>
+</head>
+<body class="
+        w-full h-screen relative
+        bg-[url('https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80')]
+        bg-cover bg-no-repeat bg-bottom
+    "
+>
+    
+    <div id="app" class="registerTeacher w-full h-full">
+        <div class=
+            "   
+                absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl
+                bg-white px-10 py-8 shadow-lg
+            "
+        >
+            <p class="text-2xl">
+                <span class="font-semibold">Login</span> <span class="text-lg">Teacher</span>
+            </p>
+            <div class="mt-6 flex flex-col md:w-96 gap-y-2.5">
+                <input v-model="form.teacherName" type="text" placeholder="Name" class="px-4 py-2 border-2 border-orange-700/40 rounded-md" required>
+                <input v-model="form.username" type="text" placeholder="Username" class="px-4 py-2 border-2 border-orange-700/40 rounded-md" required>
+                <input v-model="form.password" type="text" placeholder="Password" class="px-4 py-2 border-2 border-orange-700/40 rounded-md" required>
+            </div>
+            <div class="flex flex-col w-full text-center">
+                <button @click="onRegister()" class="w-full mt-4 p-2.5 bg-orange-400 hover:bg-orange-500 rounded-md text-white shadow-sm duration-200">
+                    Register
+                </button>
+                <a href="./login.html" class="w-full mt-2 p-2.5 bg-gray-500/80 hover:bg-gray-500 rounded-md text-white shadow-sm duration-200">
+                    Login
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                form: {
+                    teacherName: '',
+                    username: '',
+                    password: ''
+                },
+                statusAdmin: false
+            }
+        },
+        methods: {
+
+            async onRegister() {
+                    
+                await axios.post('http://registration.app.ruk-com.cloud/Admin/register', {
+                    teacherName: this.form.teacherName,
+                    username: this.form.username,
+                    password: this.form.password
+                }).then((res) => {
+                    if (res.status === 200) {
+                        location.href = './login.html';
+                        alert('สมัครสมาชิกสำเร็จ');
+                    }
+                }).catch((err) => {
+                    alert('เกิดข้อผิดพลาดในการสมัครสมาชิก') 
+                    console.log(err); 
+                });
+            }
+        }
+    
+    }).mount('#app')
+
+
+  </script>

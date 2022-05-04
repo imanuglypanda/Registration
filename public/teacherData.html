@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/css/database.css">
+    <script src="https://kit.fontawesome.com/1ddaf0e4fa.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <header>
+            <a href="#" class="logo">FITM</a>
+            <ul>
+                <li>{{ userData.adminName }}<a href="#"><i class="fa-solid fa-user"></i></a></li>
+            </ul>
+        </header>
+        <div class="container">
+            <div class="navigation">
+                <ul>
+                    <li>
+                        <a href="studentData.html">                       
+                            <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
+                            <span class="title">ฐานข้อมูลนักศึกษา</span>
+                        </a>
+                    </li>
+                    <li v-if="!statusAdmin" id="make">
+                        <a href="teacherData.html">                       
+                            <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
+                            <span class="title">ฐานข้อมูลผู้ใช้งาน</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a v-if="false" href="resetPassword.html">
+                            <span class="icon"><i class="fa-solid fa-key"></i></span>
+                            <span class="title">ตั้งค่าpassword</span>
+                        </a>
+                    </li>
+                    <li>
+                    <a href="#" @click.prevent="onLogout()">
+                            <span class="icon"><i class="fa-solid fa-gear"></i></span>
+                            <span class="title">ออกจากระบบ</span>    
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <td>
+                    <div class="Search">
+                        <input type="text" placeholder="Search.." name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </td>
+                <td style="padding-top: 35px;">
+                    <a href="./teacher-register.html">
+                        <button class="button4">เพิ่มข้อมูลผู้ใช้งาน</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <table class="data_table">
+            <tr>
+                <th id="Name">ชื่อ-นามสกุล</th>
+                <th id="Sec">Username</th>
+                <th id="Year">Password</th>
+                <th id="pass">Edit Password</th>
+            </tr>
+            <tr v-for="item in teacherData">
+                <th>{{ item.teacherName }}</th>
+                <th>{{ item.username }}</th>
+                <th>{{ item.password }}</th>
+                <th>
+                    <a :href="'resetPassword.html?data=' + item._id">
+                        <button class="button4">Setpassword</button>
+                    </a>
+                    
+                </th>
+            </tr>
+        </table>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.createApp({
+            async created() {
+                await this.checkSession();
+                await this.getTeacher();
+            },
+            data() {
+                return {
+                    teacherData: [],
+                    userData: []
+                }
+            },
+            methods: {
+                async checkSession() {
+                    await axios.get('http://registration.app.ruk-com.cloud/checkSession').then(res => {
+                        if(!res.data.status) location.href = "./login.html";
+                        this.userData = res.data.value.user;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                async getTeacher() {
+                    await axios.get('http://registration.app.ruk-com.cloud/Teacher').then(res => {
+                        this.teacherData = res.data;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                onLogout() {
+                    axios.get('http://registration.app.ruk-com.cloud/logout').then(res => {
+                        alert(res.data.message);
+                        location.href = "./login.html";
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
