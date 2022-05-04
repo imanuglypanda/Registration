@@ -183,7 +183,7 @@
                             <table style="margin-left: 0;">
                                 <tr>
                                     <td>
-                                        <input @click="studentIdData.status = 1" type="radio" name="status">
+                                        <input v-model="studentIdData.status" type="radio" name="status" value="1">
                                     </td>
                                     <td>
                                         <label for="status">สภาพสมบูรณ์</label>
@@ -191,7 +191,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input @click="studentIdData.status = 0" type="radio" name="status">
+                                        <input v-model="studentIdData.status" type="radio" name="status" value="0">
                                     </td>
                                     <td>
                                         <label for="status">พ้นสภาพ</label>
