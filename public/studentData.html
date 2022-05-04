@@ -70,14 +70,14 @@
                 <tr>
                     <th id="ID">ID</th>
                     <th id="Name">ชื่อ-นามสกุล</th>
-                    <th id="Sec">สาขา</th>
+                    <th id="Sec">ระดับ</th>
                     <th id="Year">ชั้นปี</th>
                     <th id="Status">สถานะ</th>
                 </tr>
                 <tr v-for="item in studentData"> 
                     <th>{{ item.studentId }}</th>
                     <th>{{ item.studentThaName }}</th>
-                    <th>{{ item.syllabus }}</th>
+                    <th>{{ item.degree }}</th>
                     <th>{{ item.year }}</th>
                     <th v-if="item.status === '1'" style="background: lightgreen;" >สภาพสมบูรณ์</th>
                     <th v-if="item.status === '0'" style="background: red;">พ้นสภาพ</th>
@@ -97,7 +97,6 @@
             async created() {
                 await this.checkSession();
                 await this.getStudent();
-                await this.initStudentData();
             },
             data() {
                 return {
@@ -114,32 +113,6 @@
                 }
             },
             methods: {
-                async initStudentData() {
-                    if(this.studentData.data.faculty === '1') {
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'IT'
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'ITI'
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'CA'
-                    }
-                    else if(this.studentData.data.faculty === '2') {
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'Cer.D'
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'AAP.D'
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'CI.D'
-                    }
-                    else if(this.studentData.data.faculty === '3') {
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'CPet'
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'ILet'
-                        if(this.studentData.data.syllabus === '1')
-                            this.studentData.data.syllabus = 'MAet'
-                    }
-                },
                 async checkSession() {
                     await axios.get('http://registration.app.ruk-com.cloud/checkSession').then(res => {                       
                         if(!res.data.status) location.href = "./login.html";
