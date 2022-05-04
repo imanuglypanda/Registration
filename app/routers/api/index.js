@@ -35,7 +35,7 @@ router.get('/logout', (req, res) => {
     res.status(200).json({message: 'ออกจากระบบสำเร็จ'});
   } catch (err) {
     res.status(400).console.log(err);
-  }
+  };
 });
 
 module.exports = router;
