@@ -67,14 +67,14 @@
 
             async onRegister() {
                     
-                await axios.post('http://registration.app.ruk-com.cloud/Admin/register', {
+                await axios.post('http://registration.app.ruk-com.cloud/Teacher/register', {
                     teacherName: this.form.teacherName,
                     username: this.form.username,
                     password: this.form.password
                 }).then((res) => {
                     if (res.status === 200) {
                         location.href = './login.html';
-                        alert('สมัครสมาชิกสำเร็จ');
+                        alert('สมัครผู้ใช้งานสำเร็จ');
                     }
                 }).catch((err) => {
                     alert('เกิดข้อผิดพลาดในการสมัครสมาชิก') 
