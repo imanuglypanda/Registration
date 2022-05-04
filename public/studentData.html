@@ -97,7 +97,7 @@
             async created() {
                 await this.checkSession();
                 await this.getStudent();
-                await this.init();
+                await this.initStudentData();
             },
             data() {
                 return {
@@ -114,30 +114,30 @@
                 }
             },
             methods: {
-                async init() {
-                    if(this.studentData.faculty === '1') {
-                        if(this.studentData.syllabus === '1')
-                            this.studentData.syllabus = 'IT';
-                        if(this.studentData.syllabus === '2')
-                            this.studentData.syllabus = 'ITI';
-                        if(this.studentData.syllabus === '3')
-                            this.studentData.syllabus = 'CA';
-                    } 
-                    else if(this.studentData.faculty === '2') {
-                        if(this.studentData.syllabus === '1')
-                            this.studentData.syllabus = 'Cer.D';
-                        if(this.studentData.syllabus === '2')
-                            this.studentData.syllabus = 'AAP.D';
-                        if(this.studentData.syllabus === '3')
-                            this.studentData.syllabus = 'CI.D';
+                async initStudentData() {
+                    if(this.studentData.data.faculty === '1') {
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'IT'
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'ITI'
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'CA'
                     }
-                    else if(this.studentData.faculty === '3') {
-                        if(this.studentData.syllabus === '1')
-                            this.studentData.syllabus = 'CPet';
-                        if(this.studentData.syllabus === '2')
-                            this.studentData.syllabus = 'ILet';
-                        if(this.studentData.syllabus === '3')
-                            this.studentData.syllabus = 'MAet';
+                    else if(this.studentData.data.faculty === '2') {
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'Cer.D'
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'AAP.D'
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'CI.D'
+                    }
+                    else if(this.studentData.data.faculty === '3') {
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'CPet'
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'ILet'
+                        if(this.studentData.data.syllabus === '1')
+                            this.studentData.data.syllabus = 'MAet'
                     }
                 },
                 async checkSession() {
