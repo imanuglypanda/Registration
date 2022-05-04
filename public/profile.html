@@ -149,7 +149,7 @@
                             <label for="fname">แผน</label>
                         </td>
                         <td>
-                            <input :disabled="!statusAdmin" type="text" id="fname" name="fname" value="John">
+                            <input :disabled="!statusAdmin" type="text" id="fname" name="fname">
                         </td>
                     </tr> -->
                     <tr>
@@ -178,13 +178,11 @@
                             <label for="status">สถานะนักศึกษา</label>
                         </td>
                         
-                        <td style="margin-left: 0;">
-                            <table >
+                        <td>
+                            <table style="margin-left: 0;">
                                 <tr>
                                     <td>
-                                        {{ statusIdData.status }}
-                                        {{ statusIdData.status === true }}
-                                        <input v-model="studentIdData.status" type="radio" name="status">
+                                        <input @click="studentIdData.status = 1" type="radio" name="status">
                                     </td>
                                     <td>
                                         <label for="status">สภาพสมบูรณ์</label>
@@ -192,7 +190,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input v-model="studentIdData.status" type="radio" name="status">
+                                        <input @click="studentIdData.status = 0" type="radio" name="status">
                                     </td>
                                     <td>
                                         <label for="status">พ้นสภาพ</label>
@@ -223,7 +221,7 @@
                             <label for="fname">บัตรประตัวประชาชน</label>
                         </td>
                         <td>
-                            <input v-model="studentIdData.citizenId" v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname" value="John">
+                            <input v-model="studentIdData.citizenId" v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname">
                         </td>
                     </tr>
                     <tr>
@@ -232,7 +230,7 @@
                         </td>
                         
                         <td>
-                            <input v-model="studentIdData.race" :disabled="!statusAdmin" type="text" id="fname" name="fname" value="John">
+                            <input v-model="studentIdData.race" :disabled="!statusAdmin" type="text" id="fname" name="fname">
                         </td>
                     </tr>
                     <tr>
@@ -250,7 +248,7 @@
                         </td>
                         
                         <td>
-                            <input v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname" value="John">
+                            <input v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname">
                         </td>
                     </tr> -->
                     <!-- <tr>
@@ -259,7 +257,7 @@
                         </td>
                         
                         <td>
-                            <input v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname" value="John">
+                            <input v-model="studentIdData.citizenId" :disabled="!statusAdmin" type="text" id="fname" name="fname">
                         </td>
                     </tr> -->
                 </table> 
