@@ -26,7 +26,7 @@ router.get('/checkSession', (req, res) => {
     } catch (err) {
       res.status(400).console.log(err);
     }
-})
+});
 
 router.get('/logout', (req, res) => {
   try {
