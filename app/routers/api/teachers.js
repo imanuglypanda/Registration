@@ -15,24 +15,20 @@ router.get('/', async (req, res) => {
 
 
 // search
-router.get('/search', async (req, res) => {
-    // try {
+router.get('/search/:keyword', async (req, res) => {
+    try {
 
-      let data = req.body;
-      console.log('req.body', req.body);
-      console.log('req.body.keyword', req.body.keyword);
-      
       const teachers = await Teacher.find({
         $or: [
-          { teacherName: { $regex: data.keyword, $options: 'i' } },
+          { teacherName: { $regex: req.query.keyword, $options: 'i' } },
         ]
       }).sort({ createdAt: -1 });
       
       res.status(200).json(teachers);
 
-    // } catch (err) {
-    //   res.status(500).json({ message: err.message });
-    // };
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    };
 });
 
 

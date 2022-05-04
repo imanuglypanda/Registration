@@ -27,7 +27,7 @@
                             <span class="title">ฐานข้อมูลนักศึกษา</span>
                         </a>
                     </li>
-                    <li v-if="!statusAdmin" id="make">
+                    <li id="make">
                         <a href="teacherData.html">                       
                             <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
                             <span class="title">ฐานข้อมูลผู้ใช้งาน</span>
@@ -134,7 +134,8 @@
                     if (val.length === 0) {
                         await this.getTeacher();
                     } else {
-                        await axios.get('http://registration.app.ruk-com.cloud/Teacher/search', {
+                        console.log(val)
+                        await axios.get('http://registration.app.ruk-com.cloud/Teacher/search/' + val, {
                             keyword: val
                         }).then(res => {
                             this.teacherData = res.data;
