@@ -39,6 +39,7 @@ router.get('/:id', getTeacher, (req, res) => {
   res.status(200).json(res.teacher);
 });
 
+
 router.post('/register', async (req, res) => {
   const teacher = new Teacher({
     teacherName: req.body.teacherName,
@@ -114,6 +115,7 @@ async function getTeacher(req, res, next) {
   let teacher;
   try {
     teacher = await Teacher.findById(req.params.id);
+    
     if (teacher == null) {
       return res.status(404).json({ message: 'Cannot find teacher' });
     }
