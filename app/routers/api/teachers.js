@@ -18,11 +18,11 @@ router.get('/', async (req, res) => {
 router.get('/search/:keyword', async (req, res) => {
     try {
 
-      console.log('req.params.keyword', req.params.keyword);
-
       const teachers = await Teacher.find({
         $or: [
           { teacherName: { $regex: req.params.keyword, $options: 'i' } },
+          { username: { $regex: req.params.keyword, $options: 'i' } },
+          { password: { $regex: req.params.keyword, $options: 'i' } }
         ]
       }).sort({ createdAt: -1 });
       

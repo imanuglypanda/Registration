@@ -13,22 +13,22 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/search', async (req, res) => {
+router.get('/search/:keyword', async (req, res) => {
 
   try {
     
-    let data = req.body;
+    // let data = ;
 
     const students = await Student.find({
       $or: [
-        { studentId: { $regex: data.keyword, $options: 'i' } },
-        { studentThaName: { $regex: data.keyword, $options: 'i' } },
-        { syllabus: { $regex: data.keyword, $options: 'i' } },
-        { year: { $regex: data.keyword, $options: 'i' } },
-        { status: { $regex: data.keyword, $options: 'i' } }
+        { studentId: { $regex: req.params.keyword, $options: 'i' } },
+        { studentThaName: { $regex: req.params.keyword, $options: 'i' } },
+        { syllabus: { $regex: req.params.keyword, $options: 'i' } },
+        { year: { $regex: req.params.keyword, $options: 'i' } },
+        { status: { $regex: req.params.keyword, $options: 'i' } }
         // { keyIn: { $regex: data.keyword, $options: 'i' } }
       ]
-    });
+    }).sort({ createdAt: -1 });
 
     res.status(200).json(students);
 

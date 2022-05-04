@@ -176,12 +176,12 @@
                     });
                 },
                 async onSearch(val) {
+
                     if (val.length === 0) {
-                        await this.getTeacher();
+                        await this.getStudent();
                     } else {
-                        await axios.get('http://registration.app.ruk-com.cloud/Student/search', {
-                            keyword: val
-                        }).then(res => {
+                        await axios.get('http://registration.app.ruk-com.cloud/Student/search/' + val)
+                        .then(res => {
                             this.studentData = res.data;
                         }).catch(err => {
                             console.log(err);

@@ -134,14 +134,12 @@
                     if (val.length === 0) {
                         await this.getTeacher();
                     } else {
-                        console.log(val)
-                        await axios.get('http://registration.app.ruk-com.cloud/Teacher/search/' + val, {
-                            keyword: val
-                        }).then(res => {
-                            this.teacherData = res.data;
-                        }).catch(err => {
-                            console.log(err);
-                        });
+                        await axios.get('http://registration.app.ruk-com.cloud/Teacher/search/' + val)
+                            .then(res => {
+                                this.teacherData = res.data;
+                            }).catch(err => {
+                                console.log(err);
+                            });
                     }
                 }
             }
